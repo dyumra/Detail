@@ -135,7 +135,6 @@ toggleGuiBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- บันทึกตำแหน่งเริ่มต้นเป็น BaseCFrame
 local BaseCFrame
 do
     local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
@@ -292,7 +291,7 @@ local function ToggleStealAll()
                         end
                     end
                 end
-                task.wait(0.5)
+                task.wait(1)
             end
         end)
         coroutine.resume(StealCoroutine)
