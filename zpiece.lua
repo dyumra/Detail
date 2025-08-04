@@ -51,7 +51,7 @@ title.Font = Enum.Font.FredokaOne
 title.TextSize = 16
 title.TextColor3 = Color3.fromRGB(180, 180, 255)
 title.TextStrokeTransparency = 0.7
-title.Text = "🎣 DYHUB - Auto Fishing"
+title.Text = "💎 DYHUB - Dupe Instead"
 
 -- Toggle Button
 local toggle = false
@@ -63,7 +63,7 @@ button.BackgroundColor3 = Color3.fromRGB(50, 50, 65)
 button.Font = Enum.Font.GothamBold
 button.TextSize = 14
 button.TextColor3 = Color3.new(1, 1, 1)
-button.Text = "Fishing [OFF]"
+button.Text = "Dupe [OFF]"
 button.AutoButtonColor = false
 
 -- Button Style
@@ -86,7 +86,7 @@ btnShadow.ZIndex = -1
 -- Toggle Logic
 button.MouseButton1Click:Connect(function()
 	toggle = not toggle
-	button.Text = toggle and "Fishing [ON]" or "Fishing [OFF]"
+	button.Text = toggle and "Dupe [ON]" or "Dupe [OFF]"
 	button.BackgroundColor3 = toggle and Color3.fromRGB(40, 130, 60) or Color3.fromRGB(50, 50, 65)
 	btnStroke.Color = toggle and Color3.fromRGB(100, 255, 100) or Color3.fromRGB(100, 100, 150)
 end)
@@ -95,7 +95,7 @@ end)
 task.spawn(function()
 	while true do
 		if toggle then
-			for i = 1, 1000 do
+			for i = 1, 333 do
 				task.spawn(function()
 					pcall(function()
 						rep.Remote.Other.fishing:FireServer("reward")
@@ -103,6 +103,6 @@ task.spawn(function()
 				end)
 			end
 		end
-		task.wait(3)
+		task.wait(1)
 	end
 end)
