@@ -41,7 +41,7 @@ local TitleLabel = Instance.new("TextLabel", MainFrame)
 TitleLabel.Size = UDim2.new(1, 0, 0, 38)
 TitleLabel.BackgroundTransparency = 1
 TitleLabel.Font = Enum.Font.GothamBold
-TitleLabel.Text = "StormHub (Upgrade by DYHUB)"
+TitleLabel.Text = "StormHub - SABL"
 TitleLabel.TextSize = 18
 TitleLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
 TitleLabel.TextStrokeTransparency = 0.7
@@ -49,7 +49,7 @@ TitleLabel.TextStrokeTransparency = 0.7
 local ScrollFrame = Instance.new("ScrollingFrame", MainFrame)
 ScrollFrame.Size = UDim2.new(1, -20, 1, -70)
 ScrollFrame.Position = UDim2.new(0, 10, 0, 45)
-ScrollFrame.BackgroundTransparency = 1
+ScrollFrame.BackgroundTransparency = 1 -- โปร่งใสเต็มที่
 ScrollFrame.ScrollBarThickness = 6
 ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 ScrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
@@ -87,10 +87,10 @@ local function CreateButton(text, bgColor, borderColor, callback)
     btnStroke.Thickness = 1.7
 
     local originalColor = bgColor
-    local darkenedColor = Color3.fromRGB(
-        math.clamp(bgColor.R * 255 - 30, 0, 255) / 255,
-        math.clamp(bgColor.G * 255 - 30, 0, 255) / 255,
-        math.clamp(bgColor.B * 255 - 30, 0, 255) / 255
+    local darkenedColor = Color3.new(
+        math.clamp(originalColor.R - 0.12, 0, 1),
+        math.clamp(originalColor.G - 0.12, 0, 1),
+        math.clamp(originalColor.B - 0.12, 0, 1)
     )
 
     button.MouseButton1Click:Connect(function()
@@ -135,6 +135,7 @@ toggleGuiBtn.MouseButton1Click:Connect(function()
     end
 end)
 
+-- บันทึกตำแหน่งเริ่มต้นเป็น BaseCFrame
 local BaseCFrame
 do
     local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
@@ -232,60 +233,45 @@ LocalPlayer.CharacterAdded:Connect(function()
 end)
 
 CreateButton("Activate Luck Boost", Color3.fromRGB(40, 120, 200), Color3.fromRGB(100, 200, 255), function()
-    local event = Services.ReplicatedStorage.Events:FindFirstChild("AddServerLuck")
-    if event then
-        event:FireServer()
-    end
+    Services.ReplicatedStorage.Events:FindFirstChild("AddServerLuck"):FireServer()
 end)
 
 CreateButton("Enable Summer Event", Color3.fromRGB(255, 150, 60), Color3.fromRGB(255, 200, 120), function()
-    local event = Services.ReplicatedStorage.Events:FindFirstChild("StartSummerEvent")
-    if event then
-        event:FireServer()
-    end
+    Services.ReplicatedStorage.Events.StartSummerEvent:FireServer()
 end)
 
 CreateButton("Enable Nel Event", Color3.fromRGB(180, 60, 255), Color3.fromRGB(220, 150, 255), function()
-    local event = Services.ReplicatedStorage.Events:FindFirstChild("StartNELEvent")
-    if event then
-        event:FireServer()
-    end
+    Services.ReplicatedStorage.Events.StartNELEvent:FireServer()
 end)
 
 CreateButton("Enable Meme Event", Color3.fromRGB(90, 200, 100), Color3.fromRGB(150, 255, 150), function()
-    local event = Services.ReplicatedStorage.Events:FindFirstChild("StartMemeEvent")
-    if event then
-        event:FireServer()
-    end
+    Services.ReplicatedStorage.Events.StartMemeEvent:FireServer()
 end)
 
 CreateButton("Unlock All Doors", Color3.fromRGB(255, 90, 90), Color3.fromRGB(255, 140, 140), function()
-    local event = Services.ReplicatedStorage.Events:FindFirstChild("UnlockDoor")
-    if event then
-        event:FireServer()
-    end
+    Services.ReplicatedStorage.Events.UnlockDoor:FireServer()
 end)
 
 CreateButton("Teleport to Base", Color3.fromRGB(60, 150, 255), Color3.fromRGB(120, 200, 255), function()
-    local character = LocalPlayer.Character
-    if character then
-        local hrp = character:FindFirstChild("HumanoidRootPart")
-        if hrp and BaseCFrame then
+    local char = LocalPlayer.Character
+    if char then
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        if hrp then
             hrp.CFrame = BaseCFrame
         end
     end
 end)
 
 local StealAllEnabled = false
-local StealLoopConnection
+local StealCoroutine
 local StealButton
 
 local function ToggleStealAll()
     if StealAllEnabled then
         StealAllEnabled = false
-        if StealLoopConnection then
-            StealLoopConnection:Disconnect()
-            StealLoopConnection = nil
+        if StealCoroutine then
+            coroutine.close(StealCoroutine)
+            StealCoroutine = nil
         end
         StealButton.Text = "Steal All: Disabled"
         StealButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
@@ -293,20 +279,24 @@ local function ToggleStealAll()
         StealAllEnabled = true
         StealButton.Text = "Steal All: Enabled"
         StealButton.BackgroundColor3 = Color3.fromRGB(40, 180, 40)
-        StealLoopConnection = Services.RunService.Heartbeat:Connect(function()
-            for _, prompt in pairs(Services.Workspace:GetDescendants()) do
-                if prompt:IsA("ProximityPrompt") and prompt.ActionText == "Steal" then
-                    if prompt.Enabled then
-                        pcall(function()
-                            prompt:InputHoldBegin()
-                            prompt:InputHoldEnd()
-                        end)
+
+        StealCoroutine = coroutine.create(function()
+            while StealAllEnabled do
+                for _, prompt in pairs(Services.Workspace:GetDescendants()) do
+                    if prompt:IsA("ProximityPrompt") and prompt.ActionText == "Steal" then
+                        if prompt.Enabled then
+                            pcall(function()
+                                prompt:InputHoldBegin()
+                                prompt:InputHoldEnd()
+                            end)
+                        end
                     end
                 end
+                task.wait(0.5)
             end
-            task.wait(0.1)
         end)
+        coroutine.resume(StealCoroutine)
     end
 end
 
-StealButton = CreateButton("Steal All: Disabled", Color3.fromRGB(180, 40, 40), Color3.fromRGB(255, 100, 100), ToggleStealAll)
+StealButton = CreateButton("Steal All: Disabled", Color3.fromRGB(180, 40, 40), Color3.fromRGB(255, 140, 140), ToggleStealAll)
