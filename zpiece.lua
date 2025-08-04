@@ -1,7 +1,7 @@
 -- 🔐 Anti Direct Execution
 local player = game:GetService("Players").LocalPlayer
 if getgenv().DYHUBTHEBEST ~= "Join Our dsc.gg/dyhub" or getgenv().Credit ~= "@akirabr737" then
-	player:Kick("❌ Unauthorized execution.\n\nYou must run the loader properly.\n\nUsage:\ngetgenv().DYHUBTHEBEST = \"Join Our dsc.gg/dyhub\"\ngetgenv().Credit = \"@akirabr737\"\nloadstring(...)")
+	player:Kick("❌ Delete Credit.\n\nYou must run the loader properly.\n\nUsage:\ngetgenv().DYHUBTHEBEST = \"Join Our dsc.gg/dyhub\"\ngetgenv().Credit = \"@akirabr737")
 	return
 end
 
@@ -95,7 +95,7 @@ end)
 task.spawn(function()
 	while true do
 		if toggle then
-			for i = 1, 100 do
+			for i = 1, 1000 do
 				task.spawn(function()
 					pcall(function()
 						rep.Remote.Other.fishing:FireServer("reward")
@@ -103,6 +103,6 @@ task.spawn(function()
 				end)
 			end
 		end
-		task.wait(1)
+		task.wait(3)
 	end
 end)
