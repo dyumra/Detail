@@ -91,21 +91,21 @@ if tonumber(game.PlaceId) == tonumber(79546208627805) then
 		local Frame = TeleporterAssets:WaitForChild("Frame")
 		if Frame:FindFirstChild("TextLabel1") then
 			local TextLabel1 = Frame:FindFirstChild("TextLabel1")
-			TextLabel1.Text = "Somtank ฟาร์มเพชร 💎"
+			TextLabel1.Text = "Auto-Farm Gem | DYHUB"
 			TextLabel1.Visible = true
-			TextLabel1.TextColor3 = Color3.new(0.454902, 0.0117647, 1)
+			TextLabel1.TextColor3 = Color3.new(1, 0, 0)
 		end
 		if Frame:FindFirstChild("TextLabel2") then
 			local TextLabel2 = Frame:FindFirstChild("TextLabel2")
-			TextLabel2.Text = "ขอบคุณที่ใช้สคริปครับ"
+			TextLabel2.Text = "DYHUB (dsc.gg/dyhub)"
 			TextLabel2.Visible = true
-			TextLabel2.TextColor3 = Color3.new(0.513725, 0.321569, 1)
+			TextLabel2.TextColor3 = Color3.new(1, 1, 1)
 		end
 		if Frame:FindFirstChild("TextLabel3") then
 			local TextLabel3 = Frame:FindFirstChild("TextLabel3")
-			TextLabel3.Text = "สถานนะ : รอห้องว่าง"
+			TextLabel3.Text = "Status : Waiting for Room"
 			TextLabel3.Visible = true
-			TextLabel3.TextColor3 = Color3.new(0.658824, 0.592157, 1)
+			TextLabel3.TextColor3 = Color3.new(1, 1, 1)
 			StageUI = TextLabel3
 		end
 	end
@@ -168,7 +168,7 @@ if tonumber(game.PlaceId) == tonumber(79546208627805) then
 					end
 					Buttin1.Visible = false
 					if StageUI then
-						StageUI.Text = "สถานนะ : สร้างห้องสำเร็จ"
+						StageUI.Text = "Status : Completed room creation"
 					end
 					for i=1,5 do
 						Click_Function()
