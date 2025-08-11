@@ -1,0 +1,4 @@
+return {
+  ["DYHUB"] = "https://guns.lol/DYHUB",
+  ["Discord"] = "dsc.gg/dyhub",
+}
