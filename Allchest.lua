@@ -103,7 +103,7 @@ if tonumber(game.PlaceId) == tonumber(79546208627805) then
 		end
 		if Frame:FindFirstChild("TextLabel3") then
 			local TextLabel3 = Frame:FindFirstChild("TextLabel3")
-			TextLabel3.Text = "Status : Waiting for Room"
+			TextLabel3.Text = "Status : Find every chest"
 			TextLabel3.Visible = true
 			TextLabel3.TextColor3 = Color3.new(1, 1, 1)
 			StageUI = TextLabel3
