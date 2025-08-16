@@ -6,7 +6,7 @@ if getgenv().RunScript == true then	return end
 getgenv().RunScript = true
 
 local queueScript = string.format([[
-loadstring(game:HttpGet('https://raw.githubusercontent.com/dyumra/Detail/refs/heads/main/Somtank'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/dyumra/Detail/refs/heads/main/DiamondChest.lua'))()
 ]])
 
 queue_on_teleport(queueScript)
@@ -103,7 +103,7 @@ if tonumber(game.PlaceId) == tonumber(79546208627805) then
 		end
 		if Frame:FindFirstChild("TextLabel3") then
 			local TextLabel3 = Frame:FindFirstChild("TextLabel3")
-			TextLabel3.Text = "Status : Find every chest"
+			TextLabel3.Text = "Status : Diamond Chest only"
 			TextLabel3.Visible = true
 			TextLabel3.TextColor3 = Color3.new(1, 1, 1)
 			StageUI = TextLabel3
