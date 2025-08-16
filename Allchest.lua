@@ -6,7 +6,7 @@ if getgenv().RunScript == true then	return end
 getgenv().RunScript = true
 
 local queueScript = string.format([[
-loadstring(game:HttpGet('https://raw.githubusercontent.com/dyumra/Detail/refs/heads/main/Somtank'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/dyumra/Detail/refs/heads/main/Allchest.lua'))()
 ]])
 
 queue_on_teleport(queueScript)
